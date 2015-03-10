@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0")
-  spec.test_files    = `git ls-files spec`.split("\x0")
+  spec.test_files    = `git ls-files test`.split("\x0")
   spec.require_path  = 'lib'
 
   ### Gem Dependencies
