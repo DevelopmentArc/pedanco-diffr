@@ -12,6 +12,27 @@ describe Pedanco::Diffr::ChangeSet do
     end
   end
 
+  describe '#method_missing' do
+    it 'returns true for _changed? postfix' do
+      change_set.add_change(:name, nil, 'bar')
+      expect(change_set.name_changed?).to eq true
+    end
+
+    it 'calls super for non-matched calls' do
+      expect { change_set.foobar }.to raise_error
+    end
+  end
+
+  describe '#respond_to?' do
+    it 'returns true for _changed? postfix' do
+      expect(change_set.respond_to?(:name_changed?)).to eq true
+    end
+
+    it 'calls super for non-matched calls' do
+      expect(change_set.respond_to?(:foobar)).to eq false
+    end
+  end
+
   describe '#add_change' do
     it 'adds a new change' do
       change_set.add_change(:name, 'foo', 'bar')
@@ -125,7 +146,10 @@ describe Pedanco::Diffr::ChangeSet do
   end
 
   describe '#to_a' do
-    before(:each) { change_set.add_change(:name, 'foo') }
+    before(:each) do
+      change_set.add_change(:name, 'foo')
+      change_set.add_change(:age, 33, 32)
+    end
 
     it 'returns the change when found' do
       expect(change_set.to_a(:name)).to eq [nil, 'foo']
@@ -133,6 +157,10 @@ describe Pedanco::Diffr::ChangeSet do
 
     it 'returns nil if not found' do
       expect(change_set.to_a(:foo)).to eq []
+    end
+
+    it 'maps out all the changes with no arguments' do
+      expect(change_set.to_a).to eq [[:name, [nil, "foo"]], [:age, [32, 33]]]
     end
   end
 

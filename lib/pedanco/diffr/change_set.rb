@@ -154,18 +154,18 @@ module Pedanco
       end
 
       #
-      # Finds and returns a change as an array, used for legacy rendering
+      # Finds and returns a ChangeSet as an array, used for legacy rendering
       # that expects changes to be in [current, previous] format.
       #
-      # @param name [String,Symbol] The name of the change
+      # @param name [String,Symbol] (optional) The name of the change
       #
       # @return [Array] The Change as an array or empty if no change is found.
-      def to_a(name)
+      def to_a(name = nil)
         if name.present?
           change = @changes[name.to_sym]
           change.present? ? change.to_a : []
         else
-          @changes.map(&:to_a)
+          @changes.map { |k, v| [k, v.to_a] }
         end
       end
 
