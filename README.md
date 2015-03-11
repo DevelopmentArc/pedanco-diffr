@@ -27,7 +27,7 @@ change_set = Pedanco::Diffr::ChangeSet.new(name: ['Tim', 'Tom'])
 # Add another change and query the ChangeSet
 change_set.add_change(:age, 21, 23)
 change_set.name_changed? # => true
-change_set.changed(:age) # => true
+change_set.changed?(:age) # => true
 
 # Remove a change and query the ChangeSet
 change_set.remove_change(:age) # => true
@@ -44,6 +44,7 @@ name_change.previous # => 'Tom'
 When creating a new ChangeSet you can pass in a `Hash` of named `Arrays`. The key of the hash will be used to generate the change name, and the `Array` defines the current and previous values.
 
 ```ruby
+# Create the ChangeSet with Hash data
 data_set   = { city: ['San Diego', 'Denver'], state: ['CA', nil] }
 change_set = Pedanco::Diffr::ChangeSet.new(data_set)
 change_set.state_changed? #=> true
@@ -52,6 +53,7 @@ change_set.state_changed? #=> true
 You can also directly add changes using the `add_change` method.
 
 ```ruby
+# Create ChangeSet and add changes directly
 change_set = Pedanco::Diffr::ChangeSet.new
 change_set.add_change(:city, 'San Diego', 'Denver')
 change_set.add_change(:state, 'CA')
@@ -68,11 +70,12 @@ change_set = Pedanco::Diffr::ChangeSet.new
 change_set.parse_changes(address.changes)
 ```
 
-# Quering the ChangeSet
+# Querying the ChangeSet
 
-Once a change has been added you can query the ChangeSet to see if the set contains a change you are looking for. You can do this by using the `_changed?` convinence method, which prepends the name of the change, such as `city_changed?`. You can can also call the `changed?` method passing in the name of the change you want to verify.
+Once a change has been added you can query the ChangeSet to see if the set contains a change you are looking for. You can do this by using the `_changed?` convenience method, which prepends the name of the change, such as `city_changed?`. You can can also call the `changed?` method passing in the name of the change you want to verify.
 
 ```ruby
+# Create a new ChangeSet and add a change
 change_set = Pedanco::Diffr::ChangeSet.new
 change_set.add_change(:city, 'San Diego', 'Denver')
 
@@ -88,6 +91,7 @@ change_set.changed?(:address) # => false
 The `changed?` method also allows you to pass in an array of names to query by. By default, if the `ChangeSet` has any of the changes requested, it will return `true`.
 
 ```ruby
+# Create a new ChangeSet and add a change
 change_set = Pedanco::Diffr::ChangeSet.new
 change_set.add_change(:city, 'San Diego', 'Denver')
 
@@ -98,6 +102,7 @@ change_set.changed?([:city, :address]) # => true
 If you need to make sure that all the key names passed have changed, then you can pass the `:all` flag to `changed?` method.
 
 ```ruby
+# Verify all changes exists in the ChangeSet
 change_set = Pedanco::Diffr::ChangeSet.new
 change_set.add_change(:city, 'San Diego', 'Denver')
 change_set.changed?([:city, :address], :all) # => false
@@ -107,10 +112,12 @@ change_set.changed?([:city, :address], :all) # => false
 Once you have created a change set you can access the current and previous value of the change by calling `get_change`
 
 ```ruby
+# Build a ChangeSet
 change_set = Pedanco::Diffr::ChangeSet.new
 change_set.add_change(:city, 'San Diego', 'Denver')
 change_set.add_change(:state, 'CA')
 
+# Extract the current and previous values for a change
 change_set.get_change(:city).current # => 'San Diego'
 change_set.get_change(:city).previous # => 'Denver'
 ```
@@ -118,6 +125,7 @@ change_set.get_change(:city).previous # => 'Denver'
 When calling `get_change` the ChangeSet will return a `Pedanco::Diffr::Change` instance. This instance allows you to get the name, current and previous value. If the change request can not be found then an empty `Change` will be returned.
 
 ```ruby
+# Requesting a non-existent change returns an empty Change
 change_set = Pedanco::Diffr::ChangeSet.new
 change = change_set.get_change(:age)
 change.name # => :age
@@ -126,13 +134,14 @@ change.previous # => nil
 ```
 
 # Change values
-A `Pedanco::Diffr::Change` instance's current or previous values can be any kind of data. By default both the current and previous are `nil`. This allows for empty changes, a change from empty to something or something to empty. Only the name of the change is required. The name can be a `String` or `Symbol`. By defailt we convert the name to a `Symbol` for lookup purposes.
+A `Pedanco::Diffr::Change` instance's current or previous values can be any kind of data. By default both the current and previous are `nil`. This allows for empty changes, a change from empty to something or something to empty. Only the name of the change is required. The name can be a `String` or `Symbol`. By default we convert the name to a `Symbol` for lookup purposes.
 
 ```ruby
+# Multiple ways to add a change
 change_set = Pedanco::Diffr::ChangeSet.new
 change_set.add_change('name', nil, nil) # => Empty change
 change_set.add_change('field', 'Bar') # => Empty to something change
-change_set.add_change(:money, nil, 'Something') # => Soemthing to empty change
+change_set.add_change(:money, nil, 'Something') # => Something to empty change
 ```
 
 When calling `add_change` only a current value must be passed to the method (including `nil`). By default the previous value will be set to `nil`.
@@ -141,6 +150,7 @@ When calling `add_change` only a current value must be passed to the method (inc
 When working with a ChangeSet you can remove an existing change or overwrite it. To remove a change you can call the `remove_change` method. To override a change, just call `add_change` with the same name.
 
 ```ruby
+# Create a ChangeSet with some changes
 change_set = Pedanco::Diffr::ChangeSet.new
 change_set.add_change(:city, 'San Diego', 'Denver')
 change_set.add_change(:state, 'CA')
@@ -161,7 +171,7 @@ For example, when a user changes their Role or name, we need to run a lot of cac
 
 `Pedanco::Diffr` allows us to build a `ChangeSet` that is then passed along with the Wisper event. Our global subscribers can then process the changes and trigger different actions based on what changed. We use a combination of custom change tracking in [Mutations](https://github.com/cypriss/mutations) and `ActiveRecord` changes to build out our `ChangeSet` and then dispatch them once the process of creation/updating is complete.
 
-# Liscence
+# License
 The MIT License (MIT)
 
 Copyright (c) 2015 DevelopmentArc
