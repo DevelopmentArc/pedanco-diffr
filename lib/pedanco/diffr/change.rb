@@ -23,13 +23,13 @@ module Pedanco
       # Initializes the data when passed via new().
       #
       # @param name [String/Symbol] (required) The name of the data
-      # @param current: nil [Any] (optional) The current value for the
+      # @param current [Any] (optional) The current value for the
       #   change, defaults to nil.
-      # @param previous: nil [Any] (optional) The previous value for the
+      # @param previous [Any] (optional) The previous value for the
       #   change, defaults to nil.
       #
       # @raise [RuntimeError] if name is nil or ''
-      def initialize(name, current: nil, previous: nil)
+      def initialize(name, current = nil, previous = nil)
         fail 'Name is required for a Change.' if name.blank?
         @name     = name
         @current  = current

@@ -19,7 +19,7 @@ describe Pedanco::Diffr::Change do
     end
 
     context 'passing values' do
-      subject { Pedanco::Diffr::Change.new(:bar, current: 'baz', previous: 'biff') }
+      subject { Pedanco::Diffr::Change.new(:bar, 'baz', 'biff') }
 
       it 'sets the name' do
         expect(subject.name).to eq :bar
@@ -36,7 +36,7 @@ describe Pedanco::Diffr::Change do
   end
 
   context '#to_a' do
-    subject { Pedanco::Diffr::Change.new(:bar, current: 'baz', previous: 'biff') }
+    subject { Pedanco::Diffr::Change.new(:bar, 'baz', 'biff') }
 
     it 'orders the array correctly' do
       expect(subject.to_a).to eq %w(biff baz)

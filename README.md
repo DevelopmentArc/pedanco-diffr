@@ -1,10 +1,10 @@
 # pedanco-diffr
 
-[![Codeship Status for DevelopmentArc/pedanco-diffr](https://codeship.com/projects/2ca2cec0-a9a6-0132-8917-427bb4181a39/status?branch=develop)](https://codeship.com/projects/67769)
+[![Codeship Status for DevelopmentArc/pedanco-diffr](https://codeship.com/projects/2ca2cec0-a9a6-0132-8917-427bb4181a39/status?branch=master)](https://codeship.com/projects/67769)
 [![Code Climate](https://codeclimate.com/github/DevelopmentArc/pedanco-diffr/badges/gpa.svg)](https://codeclimate.com/github/DevelopmentArc/pedanco-diffr)
-[![Coverage Status](https://coveralls.io/repos/DevelopmentArc/pedanco-diffr/badge.svg?branch=develop)](https://coveralls.io/r/DevelopmentArc/pedanco-diffr?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/DevelopmentArc/pedanco-diffr/badge.svg?branch=master)](https://coveralls.io/r/DevelopmentArc/pedanco-diffr?branch=master)
 
-A change set library for managing how data is evolved overtime. `Pedanco::Diffr` allows you to track changes to a `ChangeSet` and then query the `ChangeSet` to determine if the data has changed, what the current value is and what the previous value was. This was inspired by the [ActiveModel::Dirty](http://api.rubyonrails.org/classes/ActiveModel/Dirty.html) class, but has been isolated so that it can be used just to track any kind of data change.
+A change set library for managing how data is evolved overtime. `Pedanco::Diffr` allows you to track changes in a `ChangeSet` and then query the `ChangeSet` to determine if the data has changed, what the current value is and what the previous value was. This was inspired by the [ActiveModel::Dirty](http://api.rubyonrails.org/classes/ActiveModel/Dirty.html) class, but has been isolated so that it can be used to track any kind of data change without the ActiveModel/ActiveRecord inclusions.
 
 # Installation
 ```bash
@@ -40,7 +40,7 @@ name_change.previous # => 'Tom'
 ```
 
 # Creating a ChangeSet
-When creating a new ChangeSet you can pass in a `Hash` of named `Arrays`. The key of the hash will be used to generate the change name, and the `Array` defines the current and previous values. 
+When creating a new ChangeSet you can pass in a `Hash` of named `Arrays`. The key of the hash will be used to generate the change name, and the `Array` defines the current and previous values.
 
 ```ruby
 data_set   = { city: ['San Diego', 'Denver'], state: ['CA', nil] }

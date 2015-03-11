@@ -78,7 +78,7 @@ module Pedanco
       def add_change(name, current_value, previous_value = nil)
         sym = name.to_sym
         @changes[sym] =
-          Change.new(sym, current: current_value, previous: previous_value)
+          Change.new(sym, current_value, previous_value)
         @changes[sym]
       end
 
@@ -200,7 +200,7 @@ module Pedanco
         hash_array = hash.map do |k, v|
           name  = k.to_sym
           value = Array.wrap(v)
-          [name, Change.new(name, current: value[0], previous: value[1])]
+          [name, Change.new(name, value[0], value[1])]
         end
         Hash[hash_array]
       end
