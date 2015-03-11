@@ -1,5 +1,6 @@
 # pedanco-diffr
 
+[![Gem Version](https://badge.fury.io/rb/pedanco-diffr.svg)](http://badge.fury.io/rb/pedanco-diffr)
 [![Codeship Status for DevelopmentArc/pedanco-diffr](https://codeship.com/projects/2ca2cec0-a9a6-0132-8917-427bb4181a39/status?branch=master)](https://codeship.com/projects/67769)
 [![Code Climate](https://codeclimate.com/github/DevelopmentArc/pedanco-diffr/badges/gpa.svg)](https://codeclimate.com/github/DevelopmentArc/pedanco-diffr)
 [![Coverage Status](https://coveralls.io/repos/DevelopmentArc/pedanco-diffr/badge.svg?branch=master)](https://coveralls.io/r/DevelopmentArc/pedanco-diffr?branch=master)
