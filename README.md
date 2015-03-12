@@ -25,12 +25,12 @@ gem 'pedanco-diffr'
 change_set = Pedanco::Diffr::ChangeSet.new(name: ['Tim', 'Tom'])
 
 # Add another change and query the ChangeSet
-change_set.add_change(:age, 21, 23)
+change_set.add_change(:age, 21, 23) # => Pedanco::Diffr::Change
 change_set.name_changed? # => true
 change_set.changed?(:age) # => true
 
 # Remove a change and query the ChangeSet
-change_set.remove_change(:age) # => true
+change_set.remove_change(:age) # => Pedanco::Diffr::Change
 change_set.age_changed? # => false
 change_set.changed?(:age) # => false
 
@@ -55,8 +55,8 @@ You can also directly add changes using the `add_change` method.
 ```ruby
 # Create ChangeSet and add changes directly
 change_set = Pedanco::Diffr::ChangeSet.new
-change_set.add_change(:city, 'San Diego', 'Denver')
-change_set.add_change(:state, 'CA')
+change_set.add_change(:city, 'San Diego', 'Denver') # => Pedanco::Diffr::Change
+change_set.add_change(:state, 'CA') # => Pedanco::Diffr::Change
 
 change_set.city_changed? #=> true
 change_set.state_changed? #=> true
@@ -77,7 +77,7 @@ Once a change has been added you can query the ChangeSet to see if the set conta
 ```ruby
 # Create a new ChangeSet and add a change
 change_set = Pedanco::Diffr::ChangeSet.new
-change_set.add_change(:city, 'San Diego', 'Denver')
+change_set.add_change(:city, 'San Diego', 'Denver') # => Pedanco::Diffr::Change
 
 # Using _changed?
 change_set.city_changed? #=> true
@@ -93,7 +93,7 @@ The `changed?` method also allows you to pass in an array of names to query by. 
 ```ruby
 # Create a new ChangeSet and add a change
 change_set = Pedanco::Diffr::ChangeSet.new
-change_set.add_change(:city, 'San Diego', 'Denver')
+change_set.add_change(:city, 'San Diego', 'Denver') # => Pedanco::Diffr::Change
 
 # Pass an Array of names to query
 change_set.changed?([:city, :address]) # => true
@@ -104,7 +104,7 @@ If you need to make sure that all the key names passed have changed, then you ca
 ```ruby
 # Verify all changes exists in the ChangeSet
 change_set = Pedanco::Diffr::ChangeSet.new
-change_set.add_change(:city, 'San Diego', 'Denver')
+change_set.add_change(:city, 'San Diego', 'Denver') # => Pedanco::Diffr::Change
 change_set.changed?([:city, :address], :all) # => false
 ```
 
@@ -114,8 +114,8 @@ Once you have created a change set you can access the current and previous value
 ```ruby
 # Build a ChangeSet
 change_set = Pedanco::Diffr::ChangeSet.new
-change_set.add_change(:city, 'San Diego', 'Denver')
-change_set.add_change(:state, 'CA')
+change_set.add_change(:city, 'San Diego', 'Denver') # => Pedanco::Diffr::Change
+change_set.add_change(:state, 'CA') # => Pedanco::Diffr::Change
 
 # Extract the current and previous values for a change
 change_set.get_change(:city).current # => 'San Diego'
@@ -127,7 +127,7 @@ When calling `get_change` the ChangeSet will return a `Pedanco::Diffr::Change` i
 ```ruby
 # Requesting a non-existent change returns an empty Change
 change_set = Pedanco::Diffr::ChangeSet.new
-change = change_set.get_change(:age)
+change = change_set.get_change(:age) # => Pedanco::Diffr::Change
 change.name # => :age
 change.current # => nil
 change.previous # => nil
@@ -152,15 +152,15 @@ When working with a ChangeSet you can remove an existing change or overwrite it.
 ```ruby
 # Create a ChangeSet with some changes
 change_set = Pedanco::Diffr::ChangeSet.new
-change_set.add_change(:city, 'San Diego', 'Denver')
-change_set.add_change(:state, 'CA')
+change_set.add_change(:city, 'San Diego', 'Denver') # => Pedanco::Diffr::Change
+change_set.add_change(:state, 'CA') # => Pedanco::Diffr::Change
 
 # overriding a change
-change_set.add_change(:state, 'CA', 'CO')
+change_set.add_change(:state, 'CA', 'CO') # => Pedanco::Diffr::Change
 change_set.get_change(:state).previous # => 'CO'
 
 # removing a change
-change_set.remove_change(:city)
+change_set.remove_change(:city) # => Pedanco::Diffr::Change
 change_set.city_changed? # => false
 ```
 
