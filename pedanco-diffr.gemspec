@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.require_path  = 'lib'
 
   ### Gem Dependencies
-  spec.add_runtime_dependency 'activesupport', '<= 4.2', '>= 3.2'
+  spec.add_runtime_dependency 'activesupport', '< 5', '>= 3.2'
 
   ### Development Dependencies
   spec.add_development_dependency 'bundler',  '~> 1.7'
